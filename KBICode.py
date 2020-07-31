@@ -202,8 +202,8 @@ def areadistance(K,KH,KH12,BKH,Kparams,aarea,Baarea,inBor,ppair,size,userw,J,J12
 		net,avel=generatenet(Agg,aarea,userw,size)
 		
 		#ME16:
-		fout2=open('ME16config'+str(ggg)+'.dat')
-		fout2.write('wards KBIfraction originalfration')
+		fout2=open('ME16config'+str(ggg)+'.dat','w')
+		fout2.write('wards KBIfraction originalfration\n')
 		nseta,ml1,ml2=GgenerateSpins(KH,userw,Kparams,net,aarea,ppair,J)	
 		llen=aarea.keys()
 		llindex=[]
@@ -261,8 +261,8 @@ def areadistance(K,KH,KH12,BKH,Kparams,aarea,Baarea,inBor,ppair,size,userw,J,J12
 		fout2.close()
 		
 		#ME12:
-		fout2=open('ME12config'+str(ggg)+'.dat')
-		fout2.write('wards KBIfraction originalfration')
+		fout2=open('ME12config'+str(ggg)+'.dat','w')
+		fout2.write('wards KBIfraction originalfration\n')
 		nseta,ml1,ml2=GgenerateSpins(KH12,userw,Kparams,net,aarea,ppair,J12)
 		llen=aarea.keys()
 		llindex=[]
@@ -320,8 +320,8 @@ def areadistance(K,KH,KH12,BKH,Kparams,aarea,Baarea,inBor,ppair,size,userw,J,J12
 		fout2.close()
 
 		#EUref:
-		fout2=open('EUrconfig'+str(ggg)+'.dat')
-		fout2.write('area(wards,Boroughs) KBIfraction originalfration')
+		fout2=open('EUrconfig'+str(ggg)+'.dat','w')
+		fout2.write('area(wards,Boroughs) KBIfraction originalfration\n')
 		nseta,bl1,bl2=GgenerateSpins(BKH,userw,Kparams,net,aarea,ppair,BJ)
 		Btutto=0
 		Bdi=0
@@ -414,36 +414,27 @@ for line in igot:
 			inBor[int(about[1])]=[[],[w]]
 			pass
 
-print 'areas not in Brexit', len(inBor.keys()), inBor.keys()
-
 fh.close()
 
-#size:
-print min(size.values()), max(size.values()), 'rat', max(size.values())/min(size.values())
-print 'num of nodes now', len(size.keys())*100
+#Rescale:
 minsize=40 #min population size in a ward
 minw=min(size.values())
 totn=0
 for w in size.keys():
 	totn=totn+int((size[w]/minw)*minsize)
 	size[w]=int((size[w]/minw)*minsize)
-print 'final totnodes', totn
-print sum(size.values())
 
 fh4=open('ME16-12EUBoroughs.dat','r')
 igot4=fh4.readlines()
 del igot4[0]
 fh4.close()
 
-LA={}
-#Brexit data:
+#EUref data:
 for line in igot4:
 	about = line.strip().split(' ')
 	a=int(about[0])
 	if a in inBor.keys():
 		inBor[a][0]=[1.-float(about[3]),1.-float(about[4]),1.-float(about[2])]
-
-print 'inBor',inBor[0]
 
 userw={}
 ind=0
@@ -501,13 +492,13 @@ for ii in range(len(llen)):
 		ssum[4]=ssum[4]+absdis*fff
 		ss2[4]=ss2[4]+absdis*absdis*fff
 		totsum=totsum+fff
+
+#Blau space distance normalization:
 fdisc=[0.]*K
 stdv=[0.]*K
 for x in range(K):
 	fdisc[x]=ssum[x]/float(totsum)
 	stdv[x]=sqrt((ss2[x]-2.*ssum[x]*fdisc[x]+totsum*fdisc[x]*fdisc[x])/float(totsum-1))
-	print 'ksicrete',fdisc[x],stdv[x]
-
 
 llen=area.keys()
 for ii in range(len(llen)):
@@ -528,7 +519,7 @@ fout.write('ID ME16distance_608w ME16distance_228w ME16distance_18Bor ME16distan
 random.seed(1111)
 ggg=0
 start_time = time.time()
-while time.time() - start_time<84600: #it generates spins configurations according to random model paramters for 24h
+while time.time() - start_time<84600: #it generates spins configurations according to random model parameters for 24h
 	tetas=(14.,random.uniform(-7.,12.),random.uniform(-5.,12.),random.uniform(-6.,12),random.uniform(-7.,11.),random.uniform(-5.,12.),0.44,random.uniform(-2.35,-0.1),random.uniform(0.3,2.7),random.uniform(-1.5,-0.2),0.44,random.uniform(-1.65,0.15),random.uniform(0.1,2),random.uniform(-1.6,-0.35),0.44,random.uniform(-1.5,0.15),random.uniform(-0.3,1.2),random.uniform(-0.4,0.7),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,40.),random.uniform(0.,40.),random.uniform(0.,40.))
 	params=[tetas[0],tetas[1],tetas[2],tetas[3],tetas[4],tetas[5]]
 	ff=tetas[18]
@@ -542,7 +533,6 @@ while time.time() - start_time<84600: #it generates spins configurations accordi
 	Bef=[[tetas[14]*Bff],[tetas[15]*Bff*0.1],[tetas[16]*Bff*10],[tetas[17]*Bff*0.1]]
 	
 	res16,res12,resB,avel=areadistance(K,ef,ef12,Bef, params,area,Barea,inBor,pairw,size,userw,J,J12,BJ,ggg)
-	print res16,res12,resB,avel
 	if avel!=100:
 		fout.write('%s ' % (ggg))
 		for a in res16:
