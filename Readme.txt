@@ -15,18 +15,13 @@ ward-results.csv	:ward level (UK) data EUreferendum from https://3859gp38qzh51h5
 ward-profiles-excel-version.csv	:ward level (Greater London) income data (among others) https://data.london.gov.uk/dataset/ward-profiles-and-atlas
 
 
-Program >generatedata.py parses de original files to generate clean files:
+Program >parsedata.py parses de original files to generate clean files:
 ME16-12_sociodemographics.dat	:2012 and 2016 Mayoral Elections data at ward level (608wards) together with socio-demographic data
 EUwards.dat	:EUreferendum data at ward level (only 280wards are given)
 ME16-12EUBoroughs.dat	:2012 and 2016 Mayoral Elections and EUreferendum outcomes at Borough level
 
-Program >KBICode.py is the code to generate spins configurations given a paramter set according to the KBI model, and compute the distance (Eq.7 in the manuscript) with the original electoral outcomes. Outcomes of the porgram is a file 'params.dat' which includes distances to the orignal outcomes for the three elections and for each spin cofiguration ME16config_x.dat ME12config_x.dat EUrconfig_x.dat where 'x' is the parameter set.
+Program >KBICode.py is the code to generate spins configurations given a parameter set according to the KBI model, and compute the distance (Eq.7 in the manuscript) with the original electoral outcomes. Outcomes of the porgram is a file 'parameters.dat' which includes distances to the orignal outcomes for the three elections and for each spin cofiguration ME16config_x.dat ME12config_x.dat EUrconfig_x.dat where 'x' is ID to parameter set. This program is created to be sent in distributed computing to a High Performance Com.
 
-""
-Data processing and code for the KBI model in the article "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data". Collected datasets in here are publily available, you can find the url in the readme file. The codes is written in Pypy (a Python interpreter)---you can use python just changing 'import _numpypy as np' by 'import numpy as np'. 
-
-The KBIcode.py generate spin configuration from a parameter set (paramters random generated acording to uniform priors) and computes "distances" (Eq.7 in the manuscript) with the original electoral outcomes. The output file 'parameters.dat' includes: distances for the three elections and for different spatial aggregation (608wards, 280wards, 18Boroughs, 280wards+18Boroughs) and model paramters. 'paramters.dat' save all outcomes where the generated network has a average dregree smaller than 6 (the algorithm is less efficient generating spin cofigurations with very large average degree, but this can be midified in line 200 in the code). The ABC thershold \epsilon for the ABC posteriors (algorithm1 in the article) can be set a poteriori since all spins configurations are independent.
-""
 
 
 
