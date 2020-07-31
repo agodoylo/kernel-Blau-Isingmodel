@@ -1,4 +1,4 @@
-/OriginalData folder contains original dataset in the manuscript "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data":
+/OriginalData folder contains original datasets in the manuscript "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data":
 1b12018115151351415_AGE_UNIT	:ward level (UK) age (ordinal variable in binning of 1 year from 18 to 100 years) from census2011 data http://infusecp.mimas.ac.uk/
 201812131062425_AGE_SEX_UNIT	:ward level (UK) gender (binary variable 0 for male and 1 for female) from census2011 data http://infusecp.mimas.ac.uk/
 2017121816246549_AGE_HIQUAL_UNIT	:ward level (UK) education (categorical variable with 5 categories) from census2011 http://infusecp.mimas.ac.uk/
@@ -20,7 +20,7 @@ ME16-12_sociodemographics.dat	:2012 and 2016 Mayoral Elections data at ward leve
 EUwards.dat	:EUreferendum data at ward level (only 280wards are given)
 ME16-12EUBoroughs.dat	:2012 and 2016 Mayoral Elections and EUreferendum outcomes at Borough level
 
-Program >KBICode.py is the code to generate spins configurations given a parameter set according to the KBI model, and compute the distance (Eq.7 in the manuscript) with the original electoral outcomes. Outcomes of the porgram is a file 'parameters.dat' which includes distances to the orignal outcomes for the three elections and for each spin cofiguration ME16config_x.dat ME12config_x.dat EUrconfig_x.dat where 'x' is ID to parameter set. This program is created to be sent in distributed computing to a High Performance Com.
+Program >KBICode.py is the code to generate spins configurations given a parameter set according to the KBI model, and compute the distance (Eq.7 in the manuscript) with the original electoral outcomes. Outcomes of the program is a file 'parameters.dat' which includes distances to the original outcomes for the three elections and for each spin configuration ME16config_x.dat ME12config_x.dat EUrconfig_x.dat where 'x' is ID to parameter set. This program is created to be distributed High-performance computing (HPC).
 
 
 
