@@ -2,11 +2,8 @@ import _numpypy as np
 import sys
 from math import *
 
-#read data:
-#I have to read file by file all categories for the wards of interest. 
-#voting:
+#2016 ME ward
 fh=open('OriginalData/gla-elections-votes-all-2016_wards.csv','r')
-#gla-elections-votes-all-2016.csv #london_wards_mine.csv
 #https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency
 igot=fh.readlines()
 del igot[0]
@@ -21,21 +18,16 @@ ward=0
 darea={}
 dward={}
 
-fh4=open('OriginalData/2011censuswardscoord.csv','r') #wardscoord.dat
-#from UK2011Censuswards.csv with wards polygons should I repeated withgeopandas? at least I can check if they are correct or post the good numbers.
-#https://www.statistics.digitalresources.jisc.ac.uk/dataset/2011-census-geography-boundaries-wards-and-electoral-divisions
-#infuse_ward_lyr_2011.shp from a new program wardscentroidpandas.py 2011censuswardscoordpandas.csv
+fh4=open('OriginalData/2011censuswardscoord.csv','r')
+#from infuse_ward_lyr_2011.shp computed centroids using geopandas
 igot4=fh4.readlines()
 centro={}
 for line in igot4:
 	about = line.strip().split(',')
 	centro[about[0]]=[about[1],about[2]]
 fh4.close()
-#fout=open('LondonMayorfiltered_more.dat','w')
-#fouta=open('LondareaID_more.dat','w')
-#foutw=open('LondwardID_more.dat','w')
+
 darea[lasta]=area	
-#fouta.write('%s %s\n' % (lasta,area))
 
 moredw={}
 moredw['E05009367']='E05000231'
@@ -82,10 +74,6 @@ forget=0.
 more=0
 for line in igot:
 	about = line.strip().split(',')
-	#if len(about)!=8:
-	#	print 'about'
-	#try:
-	print about
 	saq=float(about[11])
 	cons=float(about[12])
 	re=float(about[11])/(saq+cons)
@@ -93,37 +81,22 @@ for line in igot:
 		lasta=about[0]
 		area=area+1	
 		darea[about[0]]=area	
-		#fouta.write('%s %s\n' % (about[0],area))
-	#fout.write('%s %s %s %s %s %s\n' % (area,ward,re,saq+cons, float(about[23]),(float(about[23])-(saq+cons))/float(about[23]) ))
-	#area: area ID; ward: ward ID; re: frac of labor, labor/(lab+cons); saq+cons
 	forget=forget+(float(about[23])-(saq+cons))/float(about[23])
 	if area in [7,9,24,31]:
 		try:
 			defdic[moredw[about[4]]]=[area,re]
-			#[area,ward,re,saq+cons]
 			dward[moredw[about[4]]]=ward
-			#foutw.write('%s %s %s\n' % (moredw[about[4]],ward,area))
 			more=more+1
-			#print 'yes', about[4],moredw[about[4]]
 		except KeyError:
 			defdic[about[4]]=[area,re]
 			dward[about[4]]=ward
-			#foutw.write('%s %s %s\n' % (about[4],ward,area))
 	else:
 		defdic[about[4]]=[area,re]
 		dward[about[4]]=ward
-		#foutw.write('%s %s %s\n' % (about[4],ward,area))
 	ward=ward+1
-	#except ValueError:
-	#	print 'errrrrrrrrrrrrr',line
-	#	pass
-#fout.close()
-#fouta.close()
-#foutw.close()
 
-#2012 Elections:
+#2012 ME ward data:
 fh2=open('OriginalData/Lower_Layer_Super_Output_Area__2001__to_Ward__2010__Lookup_in_England_and_Wales.csv','r')
-#Lower_Layer_Super_Output_Area__2001__to_Ward__2010__Lookup_in_England_and_Wales.csv 
 #https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-2001-to-ward-2010-lookup-in-england-and-wales/data
 igot2=fh2.readlines()
 del igot2[0]
@@ -132,43 +105,27 @@ for line in igot2:
 	about = line.strip().split(',')
 	trans[about[3]]=about[2]
 fh2.close()
-#E01000001,City of London 001A,E05000001,00AAFA,Aldersgate
-#I need re and saq+cons from May2012:
 
 fh2=open('OriginalData/gla-elections-votes-ward-2012_wards.csv','r')
-#gla-elections-votes-ward-2012.csv
 #https://data.london.gov.uk/dataset/london-elections-results-2012-wards-boroughs-constituency
 igot2=fh2.readlines()
-print len(igot2)
 del igot2[:11]
-print len(igot2)
-print igot2[0]
 
 res12={}
 
 for line in igot2:
 	about = line.strip().split(',')
-	#if len(about)!=8:
-	#	print 'about'
-	#try:
-	#print about
 	saq=float(about[13])
 	cons=float(about[11])
 	re=saq/(saq+cons)
 	try:
-		#res12[trans[about[0]]]=re
 		defdic[trans[about[0]]].append(re)
 	except KeyError:
-		#print about[0]
 		pass
 fh2.close()
 
-
-print 'total average forguet', forget/float(ward)
-
-#income:
+#Income:
 fh2=open('OriginalData/ward-profiles-excel-version.csv','r')
-#ward-profiles-excel-version\ \(1\).csv float 32 (es el elemento 33)
 #https://data.london.gov.uk/dataset/ward-profiles-and-atlas
 igot2=fh2.readlines()
 del igot2[0]
@@ -177,12 +134,11 @@ inc={}
 
 for line in igot2:
 	about = line.strip().split(',')
-	inc[about[2]]=float(about[32])/1000.
+	inc[about[2]]=float(about[32])/1000. #income(£1000)
 
 fh2.close()
 
-#Varaibles:
-#Education: 11elements ward code (2), 5 categories (no missing) 0:noqualification 1 level1 ...4 level4
+#2011Census Varaibles:
 fh=open('OriginalData/2017121816246549_AGE_HIQUAL_UNIT/Data_AGE_HIQUAL_UNIT.csv','r')
 igot=fh.readlines()
 del igot[0]
@@ -192,7 +148,6 @@ tot=0
 nw=0
 for line in igot:
 	about = line.strip().split(',')
-	#print about[1]
 	if about[1] in defdic.keys():
 		loc=[]
 		data=[]
@@ -203,15 +158,11 @@ for line in igot:
 			loc.append(float(about[len(about)-(6-i)]))
 		nw=nw+1
 		sis=sum(loc)
-		#print 'sis',sis,len(data)
 		amed=0.
 		for i in range(5):
 			amed=amed+i*loc[i]/float(sis)
 		defdic[about[1]].append(amed)
-		#print vec, sum(vec)
-print 'tot wards EQ',tot	
 		
-
 fh=open('OriginalData/1b12018115151351415_AGE_UNIT/Data_AGE_UNIT.csv','r')
 igot=fh.readlines()
 igori=igot[1]
@@ -223,7 +174,6 @@ for i in range(87):
 		b=float(a.replace('Age : Age ','').replace(' - Unit : Persons',''))
 		age.append(b)
 	except ValueError:
-		print a.replace('Age : Age ','').replace(' - Unit : Persons','')
 		age.append(100.)
 del igot[0]
 del igot[1]
@@ -233,9 +183,7 @@ tot=0
 nw=0
 for line in igot:
 	about = line.strip().split(',')
-	#print about[1]
 	if about[1] in defdic.keys():
-		#print 'helooooooooooooooo', line
 		data=[]
 		sis=0.
 		amed=0.
@@ -261,9 +209,6 @@ for i in range(40):
 		gen2.append(aa)
 		a=aa.strip().split(' ')
 		gen.append(a.count('Females'))
-	
-print gen
-print gen2
 fh.close()
 
 tot=0
@@ -271,7 +216,6 @@ nw=0
 size=[]
 for line in igot:
 	about = line.strip().split(',')
-	#print about[1]
 	if about[1] in defdic.keys():
 		data=[]
 		sis=0.
@@ -284,18 +228,15 @@ for line in igot:
 			tot=tot+n
 		nw=nw+1
 		amed=amed/float(sis)
-		#print 'sex', amed
 		defdic[about[1]].append(amed)
 		defdic[about[1]].append(centro[about[1]][0])
 		defdic[about[1]].append(centro[about[1]][1])
 		defdic[about[1]].append(inc[about[1]])
 		defdic[about[1]].append(sis) #size according to census data
 
-#write de data file:
-#fout=open('LondonMayor-coordcentroids_more.dat','w')
+#outcome file ward level(608) 2012 2016 MEs + sociodemographic data:
 fout=open('ME16-12_sociodemographics.dat','w')
-#fout.write('area,ward,re,saq+cons,edu,age,gender, lon lat,size \n')
-fout.write('0ward 1area 2may16 3may12 4edu 5age 6gender 7xcoord 8ycoord 9income(£1000) 10size\n')
+fout.write('0ward 1area 2may16 3may12 4edu 5age 6gender 7longitude 8latitude 9income(£1000) 10size\n')
 for e in defdic.keys():
 	if len(defdic[e])>5:
 		fout.write('%s ' % e)
@@ -303,13 +244,11 @@ for e in defdic.keys():
 			fout.write('%s ' % defdic[e][i])
 		fout.write('\n')
 fout.close()
-print 'moreeeeeeeeeeeeeeeee', more
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EU Referendum data and Borough data
-
 fh=open('OriginalData/ward-results.csv','r')
-#ward-results.xlsx
 #https://3859gp38qzh51h504x6gvv0o-wpengine.netdna-ssl.com/files/2017/02/ward-results.xlsx
+#outcome file ward level EUref data:
 fout=open('EUwards.dat','w')
 igot=fh.readlines()
 for line in igot:
@@ -328,9 +267,10 @@ GLBoroughs=['E09000002','E09000003','E09000004','E09000005','E09000006','E090000
 'E09000021','E09000022','E09000023','E09000024','E09000025','E09000026','E09000027','E09000028','E09000029','E09000030',
 'E09000031','E09000032','E09000033']
 Bou={}
-#Bre, may16, may12, may08, may04
-#https://data.london.gov.uk/dataset/eu-referendum-results EU-referendum-result-data.csv (remove ,)
+
+#EUref Borough level data:
 fh=open('OriginalData/EU-referendum-result-data.csv','r')
+#https://data.london.gov.uk/dataset/eu-referendum-results EU-referendum-result-data.csv
 igot=fh.readlines()
 del igot[0]
 for line in igot:
@@ -339,6 +279,7 @@ for line in igot:
 		Bou[about[3]]=[float(about[11])/(float(about[11])+float(about[12]))]
 fh.close()
 
+#Borough level ME outcomes:
 fh=open('OriginalData/gla-elections-2000-2016.csv','r')
 #Borough level all together: https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency
 #gla-elections-2000-2016.csv
@@ -357,15 +298,10 @@ for line in igot:
 			ands[about[0]]='Hammersmith & Fulham'
 		if about[1]=='Kensington and Chelsea':
 			ands[about[0]]='Kensington & Chelsea'
-print darea
+
+#outcome file Borough lebel MEs:
 fout=open('ME16-12EUBoroughs.dat','w')
 fout.write('ID,Code,EUreferendum,ME2016,ME2012\n')
 for e in Bou.keys():
 	fout.write('%s %s %s %s %s\n' % (darea[ands[e]],e,Bou[e][0],Bou[e][1],Bou[e][2]))
 fout.close()	
-
-
-		
-
-
-
