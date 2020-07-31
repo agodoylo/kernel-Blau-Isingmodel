@@ -1,0 +1,33 @@
+/OriginalData folder contains original dataset in the manuscript "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data":
+1b12018115151351415_AGE_UNIT	:ward level (UK) age (ordinal variable in binning of 1 year from 18 to 100 years) from census2011 data http://infusecp.mimas.ac.uk/
+201812131062425_AGE_SEX_UNIT	:ward level (UK) gender (binary variable 0 for male and 1 for female) from census2011 data http://infusecp.mimas.ac.uk/
+2017121816246549_AGE_HIQUAL_UNIT	:ward level (UK) education (categorical variable with 5 categories) from census2011 http://infusecp.mimas.ac.uk/
+EU-referendum-result-data.csv	:Borough level Greater London data EUreferendum https://data.london.gov.uk/dataset/eu-referendum-results
+gla-elections-2012-constituency.xls	:ward level 2012 London Mayoral election https://data.london.gov.uk/dataset/london-elections-results-2012-wards-boroughs-constituency
+gla-elections-votes-ward-2012_wards.csv	:ward level 2012 London Mayoral election https://data.london.gov.uk/dataset/london-elections-results-2012-wards-boroughs-constituency (same data converted to .csv)
+gla-elections-2000-2016.xls	:Borough level 2000-2016 London Mayoral elections hhttps://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency
+gla-elections-2000-2016.csv	:Borough level 2000-2016 London Mayoral elections https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency (same data converted to .csv)
+gla-elections-votes-all-2016.xlsx	:ward level 2016 London Mayoral election https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency
+gla-elections-votes-all-2016_wards.csv	:ward level 2016 London Mayoral election https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency (same data converted to .csv)
+2011censuswardscoord.csv	:2011 wards centroid coordinates from the UK data service https://www.statistics.digitalresources.jisc.ac.uk/dataset/2011-census-geography-boundaries-wards-and-electoral-divisions/resource/69d6f14c-9701-4edd
+Lower_Layer_Super_Output_Area__2001__to_Ward__2010__Lookup_in_England_and_Wales.csv :correspondence between 'WD10CD' and 'WD10CDO' codes from https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-2001-to-ward-2010-lookup-in-england-and-wales/data
+ward-results.csv	:ward level (UK) data EUreferendum from https://3859gp38qzh51h504x6gvv0o-wpengine.netdna-ssl.com/files/2017/02/ward-results.xlsx
+ward-profiles-excel-version.csv	:ward level (Greater London) income data (among others) https://data.london.gov.uk/dataset/ward-profiles-and-atlas
+
+
+Program >generatedata.py parses de original files to generate clean files:
+ME16-12_sociodemographics.dat	:2012 and 2016 Mayoral Elections data at ward level (608wards) together with socio-demographic data
+EUwards.dat	:EUreferendum data at ward level (only 280wards are given)
+ME16-12EUBoroughs.dat	:2012 and 2016 Mayoral Elections and EUreferendum outcomes at Borough level
+
+Program >KBICode.py is the code to generate spins configurations given a paramter set according to the KBI model, and compute the distance (Eq.7 in the manuscript) with the original electoral outcomes. Outcomes of the porgram is a file 'params.dat' which includes distances to the orignal outcomes for the three elections and for each spin cofiguration ME16config_x.dat ME12config_x.dat EUrconfig_x.dat where 'x' is the parameter set.
+
+""
+Data processing and code for the KBI model in the article "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data". Collected datasets in here are publily available, you can find the url in the readme file. The codes is written in Pypy (a Python interpreter)---you can use python just changing 'import _numpypy as np' by 'import numpy as np'. 
+
+The KBIcode.py generate spin configuration from a parameter set (paramters random generated acording to uniform priors) and computes "distances" (Eq.7 in the manuscript) with the original electoral outcomes. The output file 'parameters.dat' includes: distances for the three elections and for different spatial aggregation (608wards, 280wards, 18Boroughs, 280wards+18Boroughs) and model paramters. 'paramters.dat' save all outcomes where the generated network has a average dregree smaller than 6 (the algorithm is less efficient generating spin cofigurations with very large average degree, but this can be midified in line 200 in the code). The ABC thershold \epsilon for the ABC posteriors (algorithm1 in the article) can be set a poteriori since all spins configurations are independent.
+""
+
+
+
+
