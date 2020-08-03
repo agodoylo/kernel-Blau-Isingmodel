@@ -516,7 +516,7 @@ del stdv
 	
 fout=open('parameters'+str(Nnumber)+'.dat','w')
 fout.write('ID ME16distance_608w ME16distance_280w ME16distance_18Bor ME16distance_280w+18Bor ME12distance_608w ME12distance_280w ME12distance_18Bor ME12distance_280w+18Bor EUrdistance_280w EUrdistance_18Bor EUrdistance_280w+18Bor links/N theta_0 theta_edu theta_age theta_gender theta_dist theta_income ME16h_edu ME16h_age ME16h_gender ME16h_income ME12h_edu ME12h_age ME12h_gender ME12h_income EUrh_edu EUrh_age EUrh_gender EUrh_income ME16beta ME12beta EUrbeta ME16J ME12J EUrJ\n')
-random.seed(1111)
+#random.seed(1111)
 ggg=0
 start_time = time.time()
 while time.time() - start_time<84600: #it generates spins configurations according to random model parameters for 24h
