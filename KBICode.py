@@ -515,7 +515,7 @@ del fdisc
 del stdv
 	
 fout=open('parameters'+str(Nnumber)+'.dat','w')
-fout.write('ID ME16distance_608w ME16distance_228w ME16distance_18Bor ME16distance_228w+18Bor ME12distance_608w ME12distance_228w ME12distance_18Bor ME12distance_228w+18Bor EUdistance_228w EUdistance_18Bor EUdistance_228w+18Bor links/N theta_0 theta_edu theta_age theta_gender theta_dist theta_income ME16h_edu ME16h_age ME16h_gender ME16h_income ME12h_edu ME12h_age ME12h_gender ME12h_income EUh_edu EUh_age EUh_gender EUh_income ME16beta ME12beta EUbeta ME16J ME12J EUJ\n')
+fout.write('ID ME16distance_608w ME16distance_280w ME16distance_18Bor ME16distance_280w+18Bor ME12distance_608w ME12distance_280w ME12distance_18Bor ME12distance_280w+18Bor EUdistance_280w EUdistance_18Bor EUdistance_280w+18Bor links/N theta_0 theta_edu theta_age theta_gender theta_dist theta_income ME16h_edu ME16h_age ME16h_gender ME16h_income ME12h_edu ME12h_age ME12h_gender ME12h_income EUrh_edu EUrh_age EUrh_gender EUrh_income ME16beta ME12beta EUrbeta ME16J ME12J EUrJ\n')
 random.seed(1111)
 ggg=0
 start_time = time.time()
