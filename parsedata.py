@@ -236,7 +236,7 @@ for line in igot:
 
 #outcome file ward level(608) 2012 2016 MEs + sociodemographic data:
 fout=open('ME16-12_sociodemographics.dat','w')
-fout.write('0ward 1area 2ME16 3ME12 4edu 5age 6gender 7longitude 8latitude 9income(£1000) 10size\n')
+fout.write('0wardCODE 1BoroughID 2ME16 3ME12 4education 5age 6gender 7longitude 8latitude 9income(£1000) 10size\n')
 for e in defdic.keys():
 	if len(defdic[e])>5:
 		fout.write('%s ' % e)
