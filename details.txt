@@ -15,7 +15,7 @@ ward-results.csv	:ward level (UK) data EUreferendum from https://3859gp38qzh51h5
 ward-profiles-excel-version.csv	:ward level (Greater London) income data (among others) https://data.london.gov.uk/dataset/ward-profiles-and-atlas
 
 
-Program >parsedata.py parses de original files to generate clean files:
+Program >parsedata.py parses the original files to generate clean files:
 ME16-12_sociodemographics.dat	:2012 and 2016 Mayoral Elections data at ward level (608wards) together with socio-demographic data
 EUwards.dat	:EUreferendum data at ward level (only 280wards are given)
 ME16-12EUBoroughs.dat	:2012 and 2016 Mayoral Elections and EUreferendum outcomes at Borough level
