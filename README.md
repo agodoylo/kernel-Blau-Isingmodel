@@ -1,5 +1,5 @@
 # kernel-Blau-Isingmodel
-Data cleaning and code for the KBI model in the article "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data". Collected datasets in here are publicly available, urls can be found in 'details.txt' file. The codes are written in Pypy (a Python interpreter)---you can use python just changing 'import _numpypy as np' by 'import numpy as np'. 
+Data cleaning and code for the KBI model in the article "Inference and Influence of Large-Scale Social Networks Using Snapshot Population Behaviour without Network Data". Collected datasets in here are publicly available, urls can be found in 'details.txt' file. The codes are written in PyPy (a Python interpreter)---you can use python just changing 'import _numpypy as np' by 'import numpy as np'. 
 
 Program >parsedata.py parses de original files to generate clean files: (i) ME16-12_sociodemographics.dat --2012 and 2016 Mayoral Elections data at ward level (608wards) together with socio-demographic data--, (ii) EUwards.dat --EUreferendum data at ward level (only 280wards are given at ward level)--, and (iii) ME16-12EUBoroughs.dat --2012 and 2016 Mayoral Elections and EUreferendum outcomes at Borough level (see details.txt)
 
