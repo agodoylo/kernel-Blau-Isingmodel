@@ -520,7 +520,7 @@ fout.write('ID ME16distance_608w ME16distance_280w ME16distance_18Bor ME16distan
 ggg=0
 start_time = time.time()
 while time.time() - start_time<84600: #it generates spins configurations according to random model parameters for 24h
-	tetas=(14.,random.uniform(-7.,12.),random.uniform(-5.,12.),random.uniform(-6.,12),random.uniform(-7.,11.),random.uniform(-5.,12.),0.45,random.uniform(-3.0,0.15),random.uniform(-0.3,3.),random.uniform(-1.6,0.1),0.45,random.uniform(-2.5,0.15),random.uniform(-0.1,2.5),random.uniform(-1.6,0.1),0.45,random.uniform(-2.5,0.15),random.uniform(-0.3,2.0),random.uniform(-0.7,0.7),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,40.),random.uniform(0.,40.),random.uniform(0.,40.))
+	tetas=(14.,random.uniform(-7.,12.),random.uniform(-5.,12.),random.uniform(-6.,12),random.uniform(-7.,11.),random.uniform(-5.,12.),0.45,random.uniform(-3.0,0.15),random.uniform(-0.3,3.),random.uniform(-1.6,0.7),0.45,random.uniform(-3.0,0.15),random.uniform(-0.3,3.0),random.uniform(-1.6,0.7),0.45,random.uniform(-3.0,0.15),random.uniform(-0.3,3.0),random.uniform(-1.6,0.7),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,4.),random.uniform(0.,40.),random.uniform(0.,40.),random.uniform(0.,40.))
 	params=[tetas[0],tetas[1],tetas[2],tetas[3],tetas[4],tetas[5]]
 	ff=tetas[18]
 	ff12=tetas[19]
