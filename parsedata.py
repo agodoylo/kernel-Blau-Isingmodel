@@ -2,7 +2,7 @@ import _numpypy as np
 import sys
 from math import *
 
-#2016 ME ward
+#2016 MEwards
 fh=open('OriginalData/gla-elections-votes-all-2016_wards.csv','r')
 #https://data.london.gov.uk/dataset/london-elections-results-2016-wards-boroughs-constituency
 igot=fh.readlines()
